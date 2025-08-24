@@ -40,6 +40,9 @@ struct HomeView: View {
         }
         .listStyle(.insetGrouped)
         .navigationTitle("Dashboard")
+        .task {
+            await viewModel.loadData()
+        }
     }
 }
 

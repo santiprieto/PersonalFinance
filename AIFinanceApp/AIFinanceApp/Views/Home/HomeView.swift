@@ -5,8 +5,8 @@ struct HomeView: View {
     @EnvironmentObject var appViewModel: AppViewModel
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
+        List {
+            Section {
                 Text("Balance: \(appViewModel.userSettings.currency) \(appViewModel.balance, specifier: "%.2f")")
                     .font(.headline)
 
@@ -15,21 +15,23 @@ struct HomeView: View {
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
+            }
 
-                Text("Budgets")
-                    .font(.title2)
+            Section("Budgets") {
                 ForEach(viewModel.budgets) { budget in
                     BudgetRow(budget: budget)
                 }
+                NavigationLink("View All", destination: BudgetsView(viewModel: BudgetsViewModel()))
+            }
 
-                Text("Recent Transactions")
-                    .font(.title2)
+            Section("Recent Transactions") {
                 ForEach(viewModel.transactions.prefix(5)) { transaction in
                     TransactionRow(transaction: transaction)
                 }
+                NavigationLink("View All", destination: TransactionsView(viewModel: TransactionsViewModel()))
             }
-            .padding()
         }
+        .listStyle(.insetGrouped)
         .navigationTitle("Dashboard")
     }
 }
@@ -43,13 +45,16 @@ struct BudgetRow: View {
     }
 
     var body: some View {
-        HStack {
-            Text(budget.category)
-            Spacer()
+        VStack(alignment: .leading) {
+            HStack {
+                Text(budget.category)
+                Spacer()
+                Text("\(Int(progress*100))%")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
             ProgressView(value: progress)
-                .progressViewStyle(.circular)
-            Text("\(Int(progress*100))%")
-                .font(.caption)
+                .progressViewStyle(.linear)
         }
     }
 }
@@ -67,6 +72,7 @@ struct TransactionRow: View {
             }
             Spacer()
             Text(String(format: "%.2f", transaction.amount))
+                .foregroundColor(transaction.amount < 0 ? .red : .green)
         }
     }
 }

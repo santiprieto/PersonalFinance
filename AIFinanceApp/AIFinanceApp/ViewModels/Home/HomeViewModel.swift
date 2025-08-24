@@ -1,5 +1,6 @@
 import Foundation
 
+/// Aggregates data for the dashboard and provides AI-generated insights.
 final class HomeViewModel: ObservableObject {
     @Published var transactions: [Transaction] = SampleData.transactions
     @Published var budgets: [Budget] = SampleData.budgets

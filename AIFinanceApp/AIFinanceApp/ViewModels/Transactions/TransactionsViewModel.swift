@@ -1,5 +1,6 @@
 import Foundation
 
+/// Handles creation and removal of transactions.
 final class TransactionsViewModel: ObservableObject {
     @Published var transactions: [Transaction] = SampleData.transactions
 

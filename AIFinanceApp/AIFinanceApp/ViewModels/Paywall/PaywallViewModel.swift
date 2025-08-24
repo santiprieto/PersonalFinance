@@ -1,5 +1,6 @@
 import Foundation
 
+/// Coordinates subscription actions from the paywall interface.
 final class PaywallViewModel: ObservableObject {
     private let appViewModel: AppViewModel
 

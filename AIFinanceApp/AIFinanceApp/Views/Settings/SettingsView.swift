@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject var viewModel: SettingsViewModel
+    @EnvironmentObject private var appViewModel: AppViewModel
 
     var body: some View {
         Form {
@@ -17,7 +18,10 @@ struct SettingsView: View {
             Section(header: Text("Appearance")) {
                 Toggle("Dark Mode", isOn: $viewModel.userSettings.isDarkMode)
             }
-            Section {
+            Section(header: Text("Subscription")) {
+                NavigationLink("Upgrade") {
+                    PaywallView(viewModel: PaywallViewModel(appViewModel: appViewModel))
+                }
                 Button("Restore Purchases") {}
             }
         }

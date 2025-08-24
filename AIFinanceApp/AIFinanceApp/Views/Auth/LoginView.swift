@@ -17,6 +17,9 @@ struct LoginView: View {
                     Text(error)
                         .foregroundColor(.red)
                 }
+                if viewModel.isVerifying {
+                    ProgressView()
+                }
             }
             Section {
                 Button(isCreatingAccount ? "Create Account" : "Login") {
@@ -26,6 +29,7 @@ struct LoginView: View {
                         viewModel.login()
                     }
                 }
+                .disabled(viewModel.isVerifying)
                 Button(isCreatingAccount ? "Have an account? Log In" : "Need an account? Sign Up") {
                     isCreatingAccount.toggle()
                 }

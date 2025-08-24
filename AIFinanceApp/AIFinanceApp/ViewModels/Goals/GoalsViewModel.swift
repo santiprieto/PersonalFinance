@@ -9,4 +9,9 @@ final class GoalsViewModel: ObservableObject {
             goals[index] = goal
         }
     }
+
+    func add(title: String, targetAmount: Double, dueDate: Date) {
+        let goal = Goal(id: UUID(), title: title, targetAmount: targetAmount, currentAmount: 0, dueDate: dueDate)
+        goals.append(goal)
+    }
 }

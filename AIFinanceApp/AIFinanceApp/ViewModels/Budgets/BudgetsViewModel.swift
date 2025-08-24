@@ -9,4 +9,9 @@ final class BudgetsViewModel: ObservableObject {
             budgets[index] = budget
         }
     }
+
+    func add(category: String, limit: Double) {
+        let budget = Budget(id: UUID(), category: category, limit: limit, spent: 0)
+        budgets.append(budget)
+    }
 }

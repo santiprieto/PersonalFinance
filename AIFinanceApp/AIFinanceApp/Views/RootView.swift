@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Root view deciding whether to show onboarding, paywall or main app.
+/// Root view deciding whether to show onboarding or the main app.
 struct RootView: View {
     @StateObject private var appViewModel = AppViewModel()
 
@@ -10,8 +10,6 @@ struct RootView: View {
                 LoginView(viewModel: LoginViewModel(appViewModel: appViewModel))
             } else if !appViewModel.isOnboarded {
                 OnboardingView(viewModel: OnboardingViewModel(appViewModel: appViewModel))
-            } else if !appViewModel.isSubscribed {
-                PaywallView(viewModel: PaywallViewModel(appViewModel: appViewModel))
             } else {
                 MainTabView()
                     .environmentObject(appViewModel)

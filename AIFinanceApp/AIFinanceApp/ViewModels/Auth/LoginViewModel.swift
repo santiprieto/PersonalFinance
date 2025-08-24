@@ -7,6 +7,7 @@ final class LoginViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var confirmPassword: String = ""
     @Published var errorMessage: String?
+    @Published var isVerifying: Bool = false
 
     private let appViewModel: AppViewModel
 
@@ -15,6 +16,20 @@ final class LoginViewModel: ObservableObject {
     }
 
     func login() {
+        isVerifying = true
+        errorMessage = nil
+        defer { isVerifying = false }
+
+        guard !username.isEmpty else {
+            errorMessage = "Username required"
+            return
+        }
+
+        guard !password.isEmpty else {
+            errorMessage = "Password required"
+            return
+        }
+
         guard appViewModel.login(username: username, password: password) else {
             errorMessage = "Invalid credentials"
             return

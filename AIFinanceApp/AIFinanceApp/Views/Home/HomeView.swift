@@ -7,6 +7,13 @@ struct HomeView: View {
     var body: some View {
         List {
             Section {
+                Picker("Currency", selection: $appViewModel.userSettings.currency) {
+                    ForEach(UserSettings.availableCurrencies, id: \.self) { currency in
+                        Text(currency).tag(currency)
+                    }
+                }
+                .pickerStyle(.menu)
+
                 Text("Balance: \(appViewModel.userSettings.currency) \(appViewModel.balance, specifier: "%.2f")")
                     .font(.headline)
 

@@ -6,7 +6,9 @@ struct RootView: View {
 
     var body: some View {
         NavigationStack {
-            if !appViewModel.isOnboarded {
+            if !appViewModel.isAuthenticated {
+                LoginView(viewModel: LoginViewModel(appViewModel: appViewModel))
+            } else if !appViewModel.isOnboarded {
                 OnboardingView(viewModel: OnboardingViewModel(appViewModel: appViewModel))
             } else if !appViewModel.isSubscribed {
                 PaywallView(viewModel: PaywallViewModel(appViewModel: appViewModel))

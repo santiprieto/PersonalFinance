@@ -9,5 +9,10 @@ struct Budget: Identifiable, Hashable {
 }
 
 extension Budget {
-    static let sample: [Budget] = []
+    /// Sample budgets for previews and prototyping.
+    static let sample: [Budget] = [
+        Budget(id: UUID(), category: "Food", limit: 500, spent: 150),
+        Budget(id: UUID(), category: "Rent", limit: 1_000, spent: 1_000),
+        Budget(id: UUID(), category: "Entertainment", limit: 200, spent: 50)
+    ]
 }

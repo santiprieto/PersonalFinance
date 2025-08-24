@@ -2,6 +2,7 @@ import SwiftUI
 
 struct TransactionsView: View {
     @ObservedObject var viewModel: TransactionsViewModel
+    @State private var showingAddTransaction = false
 
     var body: some View {
         List {
@@ -11,7 +12,19 @@ struct TransactionsView: View {
             .onDelete(perform: viewModel.delete)
         }
         .navigationTitle("Transactions")
-        .toolbar { EditButton() }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                EditButton()
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: { showingAddTransaction = true }) {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+        .sheet(isPresented: $showingAddTransaction) {
+            AddTransactionView(viewModel: viewModel)
+        }
     }
 }
 

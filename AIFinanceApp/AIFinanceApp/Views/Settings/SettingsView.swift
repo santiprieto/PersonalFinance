@@ -7,7 +7,12 @@ struct SettingsView: View {
         Form {
             Section(header: Text("Profile")) {
                 TextField("Name", text: $viewModel.userSettings.name)
-                TextField("Currency", text: $viewModel.userSettings.currency)
+                Picker("Currency", selection: $viewModel.userSettings.currency) {
+                    ForEach(UserSettings.availableCurrencies, id: \.self) { currency in
+                        Text(currency).tag(currency)
+                    }
+                }
+                .pickerStyle(.menu)
             }
             Section(header: Text("Appearance")) {
                 Toggle("Dark Mode", isOn: $viewModel.userSettings.isDarkMode)
